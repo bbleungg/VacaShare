@@ -1,0 +1,10 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+/node_modules
+/server
+
+# misc
+.DS_Store
+.AppleDouble
+.env
+npm-debug.log
