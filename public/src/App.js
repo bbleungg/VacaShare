@@ -2,51 +2,107 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      currentUser: null,
       loggedIn: false,
-      tempUser: '',
-      tempPassword: ''
+      newUser: false
     }
+
+    this.changeLoginState = this.changeLoginState.bind(this);
+    this.changeNewUserState = this.changeNewUserState.bind(this);
+    this.onClickTest = this.onClickTest.bind(this);
+    this.loginRequest = this.loginRequest.bind(this);
+    this.createUser = this.createUser.bind(this);
   }
 
-  onTempUser(user) {
-    this.setState
-  }
-
-  onClickTest() {
-    axios({
-      method: 'GET',
-      url: 'http://localhost:4568'
-    })
-    .then(function(res) {
-      console.log(res);
-    })
-    .catch(function(err) {
-      console.error(err);
-    });
-  }
-
-  loginRequest(e) {
-    console.log(this.state.tempUser);
-    axios({
-      method: 'POST',
-      url: 'http://localhost:4568/login'
-    });
+  // Handle Login
+  changeLoginState() {
+    if ( this.state.loggedIn ) {
+      this.setState({
+        currentUser: null
+      });
+    }
 
     this.setState({
-      tempUser: '',
-      tempPassword: ''
+      loggedIn: !this.state.loggedIn
     });
 
-    e.preventDefault();
+    this.render();
   }
+
+  loginRequest(username, password) {
+    var context = this;
+    axios({
+      method: 'POST',
+      url: 'http://localhost:4568/login',
+      data: {
+        username: username,
+        password: password
+      }
+    })
+    .then(function(response) {
+      // Check if login was correct
+      if ( response.data.user_name ) {
+        context.changeLoginState();
+        context.setState({
+          currentUser: response.data.user_name
+        });
+      }
+    })
+    .catch(function(error) {
+      console.error(error);
+    });
+  }
+
+
+  // Handle Create User
+  changeNewUserState() {
+    this.setState({
+      newUser: !this.state.newUser
+    });
+
+    this.render();
+  }
+
+  createUser(username, password) {
+    var context = this;
+    axios({
+      method: 'POST',
+      url: 'http://localhost:4568/createuser',
+      data: {
+        username: username,
+        password: password
+      }
+    })
+    .then(function(response) {
+      context.changeNewUserState();
+    })
+    .catch(function(error) {
+      console.error(error);
+    });
+  }
+
+
+  // Test
+  onClickTest() {
+    this.changeLoginState();
+  }
+
+
 
   render() {
 
-    if ( !this.state.loggedIn ) {
+    if ( this.state.newUser ) {
       return (
-        <Login login={this.loginRequest.bind(this)} tempUser={this.state.tempUser} tempPassword={this.state.tempPassword} />
+        <NewUser createUser={this.createUser} changeNewUserState={this.changeNewUserState} />
       );
     }
+
+    if ( !this.state.loggedIn ) {
+      return (
+        <Login login={this.loginRequest} changeNewUserState={this.changeNewUserState} />
+      );
+    }
+
 
     return (
       <div className="App">

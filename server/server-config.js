@@ -22,6 +22,7 @@ app.get('/', function(req, res) {
 });
 
 // Create User
+app.post('/createuser', requestHandler.createUser);
 
 // Authentication
 app.post('/login', requestHandler.loginUser);

@@ -16,6 +16,7 @@ db.knex.schema.hasTable('users').then(function(exists) {
       user.increments('user_id').primary();
       user.string('user_name', 20).unique();
       user.string('password', 20);
+      user.timestamps();
     })
     .then(function(table) {
       console.log('Table Created:', 'Users');
@@ -31,6 +32,7 @@ db.knex.schema.hasTable('reviews').then(function(exists) {
       review.string('review', 1000);
       review.string('place');
       review.integer('user').references('user_id').inTable('users');
+      review.timestamps();
     })
     .then(function(table) {
       console.log('Table Created:', 'Reviews');

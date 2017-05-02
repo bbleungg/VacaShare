@@ -19,7 +19,7 @@
     "babel-preset-react": "^6.24.1"
   },
   "scripts": {
-    "start": "live-server --open=public/index.html & babel . --out-dir compiled --presets=es2015,react --ignore=node_modules,compiled,server,lib,db,config --source-maps inline --watch",
+    "start": "babel . --out-dir compiled --presets=es2015,react --ignore=node_modules,compiled,server,lib,db,config --source-maps inline --watch & live-server --open=public/index.html",
     "compile": "babel . --out-dir compiled --presets=es2015,react --ignore=node_modules,compiled,server,lib,db,config --source-maps inline --watch"
   }
 }
