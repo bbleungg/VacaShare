@@ -2,6 +2,7 @@
 
 /node_modules
 /compiled
+/db/vacashare.sqlite
 
 # misc
 .DS_Store

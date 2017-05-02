@@ -1,20 +1,22 @@
 {
-  "name": "mvp",
+  "name": "VacaShare",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.17.1",
+    "bookshelf": "^0.10.3",
     "cors": "^2.8.3",
+    "express": "^4.15.2",
+    "knex": "^0.13.0",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "sqlite3": "^3.1.8"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "body-parser": "^1.17.1",
-    "bookshelf": "^0.10.3",
-    "express": "^4.15.2",
-    "knex": "^0.13.0"
+    "babel-preset-react": "^6.24.1"
   },
   "scripts": {
     "start": "live-server --open=public/index.html & babel . --out-dir compiled --presets=es2015,react --ignore=node_modules,compiled,server,lib,db,config --source-maps inline --watch",

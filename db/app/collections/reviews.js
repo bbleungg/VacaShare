@@ -1,7 +1,7 @@
-var db = require('../config.js');
-var Review = require('../models.review.js');
+var db = require('../../config');
+var Review = require('../models/review');
 
-var Reviews = new db.collection();
+var Reviews = new db.Collection();
 
 Reviews.model = Review;
 
