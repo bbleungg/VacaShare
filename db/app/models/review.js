@@ -13,3 +13,5 @@ var Review = db.Model.extend({
   }
 
 });
+
+module.exports = Review;

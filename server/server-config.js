@@ -29,6 +29,7 @@ app.post('/login', requestHandler.loginUser);
 app.post('/logout', requestHandler.logoutUser);
 
 // Reviews
-
+app.post('/reviews', requestHandler.sendReview);
+app.get('/reviews', requestHandler.getReviewsByUser)
 
 module.exports = app;

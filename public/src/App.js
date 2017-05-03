@@ -4,18 +4,15 @@ class App extends React.Component {
     this.state = {
       currentUser: null,
       loggedIn: false,
-      newUser: false
+      newUser: false,
+      reviewState: null,
+      reviews: [],
+      place: ''
     }
-
-    this.changeLoginState = this.changeLoginState.bind(this);
-    this.changeNewUserState = this.changeNewUserState.bind(this);
-    this.onClickTest = this.onClickTest.bind(this);
-    this.loginRequest = this.loginRequest.bind(this);
-    this.createUser = this.createUser.bind(this);
   }
 
   // Handle Login
-  changeLoginState() {
+  changeLoginState = () => {
     if ( this.state.loggedIn ) {
       this.setState({
         currentUser: null
@@ -29,7 +26,7 @@ class App extends React.Component {
     this.render();
   }
 
-  loginRequest(username, password) {
+  loginRequest = (username, password) => {
     var context = this;
     axios({
       method: 'POST',
@@ -41,11 +38,12 @@ class App extends React.Component {
     })
     .then(function(response) {
       // Check if login was correct
-      if ( response.data.user_name ) {
+      if ( response.data.user_id ) {
         context.changeLoginState();
         context.setState({
           currentUser: response.data.user_name
         });
+
       }
     })
     .catch(function(error) {
@@ -55,7 +53,7 @@ class App extends React.Component {
 
 
   // Handle Create User
-  changeNewUserState() {
+  changeNewUserState = () => {
     this.setState({
       newUser: !this.state.newUser
     });
@@ -63,7 +61,7 @@ class App extends React.Component {
     this.render();
   }
 
-  createUser(username, password) {
+  createUser = (username, password) => {
     var context = this;
     axios({
       method: 'POST',
@@ -81,13 +79,84 @@ class App extends React.Component {
     });
   }
 
-
-  // Test
-  onClickTest() {
-    this.changeLoginState();
+  // Get Reviews
+  getUserReviews = () => {
+    var context = this;
+    axios({
+      method: 'GET',
+      url: 'http://localhost:4568/reviews',
+    })
+    .then(function(response) {
+      var reviews = response.data.filter( (review) => { return review.user === context.state.currentUser; });
+      context.setState({
+        reviews: reviews
+      });
+    })
+    .catch(function(error) {
+      console.error(error);
+    });
   }
 
+  getPlaceReviews = () => {
+    var context = this;
+    axios({
+      method: 'GET',
+      url: 'http://localhost:4568/reviews',
+    })
+    .then(function(response) {
+      var reviews = response.data.filter( (review) => { return review.place === context.state.place; });
+      context.setState({
+        reviews: reviews
+      });
+    })
+    .catch(function(error) {
+      console.error(error);
+    });
+  }
 
+  // Navigation Handling
+  logoutUser = () => {
+    this.changeLoginState();
+    this.setState({
+      reviewState: null
+    });
+  }
+
+  changeToMyReviews = () => {
+    this.getUserReviews(this.state.currentUser);
+    this.setState({
+      reviewState: 'myReviews'
+    });
+
+    this.render();
+  }
+
+  changeToWriteReview = () => {
+    this.setState({
+      reviewState: 'writeReview'
+    });
+
+    this.render();
+  }
+
+  changeToFindReviews = () => {
+    this.setState({
+      reviewState: 'findReviews'
+    });
+
+    this.render();
+  }
+
+  // Handle Place Change
+  onPlaceChange = (place) => {
+    console.log(place.target.value);
+    this.setState({
+      place: place.target.value
+    });
+    this.getPlaceReviews();
+
+    this.render();
+  }
 
   render() {
 
@@ -103,13 +172,16 @@ class App extends React.Component {
       );
     }
 
-
     return (
       <div className="App">
         <div className="header">
-          <h2>React App</h2>
+          <h1>Welcome to VacaShare, friend.</h1>
         </div>
-        <button onClick={this.onClickTest}>Touch Me</button>
+        <h3>Reviews</h3>
+        <div className="reviewsContainer">
+          <Nav logout={this.logoutUser} myReviews={this.changeToMyReviews} writeReview={this.changeToWriteReview} findReviews={this.changeToFindReviews} />
+          <Review reviews={this.state.reviews} reviewState={this.state.reviewState} sendToMyReview={this.changeToMyReviews} currentUser={this.state.currentUser} placeChange={this.onPlaceChange} />
+        </div>
       </div>
     );
   }

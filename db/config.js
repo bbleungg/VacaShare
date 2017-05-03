@@ -31,7 +31,7 @@ db.knex.schema.hasTable('reviews').then(function(exists) {
       review.increments('review_id').primary();
       review.string('review', 1000);
       review.string('place');
-      review.integer('user').references('user_id').inTable('users');
+      review.string('user').references('user_name').inTable('users');
       review.timestamps();
     })
     .then(function(table) {

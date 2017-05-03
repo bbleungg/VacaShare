@@ -42,7 +42,7 @@ class NewUser extends React.Component {
           </div>
           <div>
             <label>Password:</label>
-            <input type="text" onChange={this.onPasswordFieldChange.bind(this)} value={this.state.passwordField} />
+            <input type="password" onChange={this.onPasswordFieldChange.bind(this)} value={this.state.passwordField} />
           </div>
           <div>
             <input type="submit" value="Create User" />

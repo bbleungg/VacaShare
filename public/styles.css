@@ -1,0 +1,65 @@
+.reviewsContainer {
+  border: solid;
+  position: relative;
+  min-height: 600px;
+  display: inline-block;
+  width: 80%;
+}
+
+.reviewBegin {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translate(0, -50%);
+}
+
+.nav {
+  position: relative;
+  width: 100%;
+  display: inline-flex;
+  border-bottom: solid;
+  justify-content: space-around;
+}
+
+.nav span {
+  background-color: whitesmoke;
+  position: relative;
+  border-style: solid;
+  border-width: 1px;
+  padding: 3px 10px 3px 10px;
+}
+
+.writeReview {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+
+.reviewSubmit {
+  text-align: left;
+  position: relative;
+  height: 300px;
+  padding-top: 0;
+  padding-left: 0;
+  width: 80%;
+  margin: 0 20px 10px 40px;
+}
+
+.place {
+  margin-left: 40px;
+}
+
+.reviewHeaders {
+  margin-left: 20px;
+}
+
+.submitReview {
+  margin-left: 30%;
+}
+
+.review {
+  border-style: solid;
+  border-width: 1px;
+  padding: 2px;
+}
