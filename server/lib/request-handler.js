@@ -46,11 +46,8 @@ exports.loginUser = function(req, res) {
 };
 
 exports.createUser = function(req, res) {
-  console.log(req.body);
   var username = req.body.username;
   var password = req.body.password;
-
-  console.log(username, password);
 
   new User({ user_name: username, password: password }).fetch().then(function(found) {
     if ( found ) {

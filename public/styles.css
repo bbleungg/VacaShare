@@ -1,7 +1,7 @@
 .reviewsContainer {
   border: solid;
   position: relative;
-  min-height: 600px;
+  min-height: 200px;
   display: inline-block;
   width: 80%;
 }
@@ -25,7 +25,8 @@
 .nav span {
   background-color: whitesmoke;
   position: relative;
-  border-style: solid;
+  border-left: solid;
+  border-right: solid;
   border-width: 1px;
   padding: 3px 10px 3px 10px;
 }
@@ -39,7 +40,6 @@
 .reviewSubmit {
   text-align: left;
   position: relative;
-  height: 300px;
   padding-top: 0;
   padding-left: 0;
   width: 80%;
@@ -47,7 +47,7 @@
 }
 
 .place {
-  margin-left: 40px;
+  margin: 5px 0 10px 40px;
 }
 
 .reviewHeaders {
@@ -56,10 +56,11 @@
 
 .submitReview {
   margin-left: 30%;
+  margin-bottom: 10px;
 }
 
 .review {
-  border-style: solid;
+  border-top: solid;
   border-width: 1px;
   padding: 2px;
 }

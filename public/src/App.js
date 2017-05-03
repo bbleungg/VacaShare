@@ -141,7 +141,8 @@ class App extends React.Component {
 
   changeToFindReviews = () => {
     this.setState({
-      reviewState: 'findReviews'
+      reviewState: 'findReviews',
+      reviews: []
     });
 
     this.render();
@@ -149,7 +150,6 @@ class App extends React.Component {
 
   // Handle Place Change
   onPlaceChange = (place) => {
-    console.log(place.target.value);
     this.setState({
       place: place.target.value
     });

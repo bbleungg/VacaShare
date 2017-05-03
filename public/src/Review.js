@@ -54,15 +54,15 @@ class Review extends React.Component {
   // My Reviews
 
   render() {
-    console.log(this.props.reviews);
     if ( this.props.reviewState === 'myReviews' ) {
       return (
         <div className="myReviews">
           <h2 className="reviewHeaders">My Reviews</h2>
-          {this.props.reviews.map( (review, index) =>
+          {this.props.reviews.reverse().map( (review, index) =>
             <div className="review" key={index}>
-              <span><strong>Place:</strong> {review.place}</span>
-              <p><strong>Review:</strong> {review.review}</p>
+              <div><strong>Place: </strong>{review.place}</div>
+              <div><strong>Date Reviewed: </strong>{Math.floor((((new Date()) - review.created_at) / 1000) / 60)} minutes ago</div>
+              <p><strong>Review: </strong>{review.review}</p>
             </div>
           )}
         </div>
@@ -77,7 +77,7 @@ class Review extends React.Component {
             <h5 className="reviewHeaders">Where did you go?</h5>
             <input onChange={this.onPlaceToReviewChange} className="place" placeholder="Place to Review" />
             <h5 className="reviewHeaders">Tell us how your trip was!</h5>
-            <textarea onChange={this.onReviewChange} className="reviewSubmit" rows="20" cols="50"></textarea>
+            <textarea onChange={this.onReviewChange} className="reviewSubmit" rows="15" cols="50"></textarea>
             <input className="submitReview" type="submit" value="Send Review" />
           </form>
         </div>
@@ -90,10 +90,11 @@ class Review extends React.Component {
           <h2 className="reviewHeaders">Find Reviews</h2>
           <h5 className="reviewHeaders">What place do you have in mind?</h5>
           <input className="place" type="text" onChange={this.props.placeChange} />
-          {this.props.reviews.map( (review, index) =>
+          {this.props.reviews.reverse().map( (review, index) =>
             <div className="review" key={index}>
-              <span><strong>Reviewed By:</strong> {review.user}</span>
-              <p><strong>Review:</strong> {review.review}</p>
+              <div><strong>Reviewed By: </strong> {review.user}</div>
+              <div><strong>Date Reviewed: </strong>{Math.floor((((new Date()) - review.created_at) / 1000) / 60)} minutes ago</div>
+              <p><strong>Review: </strong>{review.review}</p>
             </div>
           )}
         </div>
